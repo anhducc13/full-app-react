@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { setGlobal } from 'reactn';
-import Swal from 'sweetalert2'
-import { LoginForm } from 'views/LoginForm'
+import Swal from 'sweetalert2';
+import { LoginForm } from 'views/LoginForm';
+import { Redirect } from 'react-router-dom';
 import {
   validateLength,
   haveSpace,
@@ -10,9 +11,11 @@ import {
   haveNumberCharacter,
   haveSpecialCharacter
 } from 'helpers/validators'
-import { authService } from 'services'
+import { Auth } from 'helpers/auth';
+import { authService } from 'services';
 
 export const Login = (props) => {
+
   const initTextField = {
     value: '',
     error: '',
@@ -133,17 +136,21 @@ export const Login = (props) => {
 
   return (
     <div>
-      <LoginForm
-        textField={{
-          usernameField: usernameField,
-          passwordField: passwordField
-        }}
-        handleChange={{
-          onChangeUsername: onChangeUsername,
-          onChangePassword: onChangePassword,
-        }}
-        handleSubmit={submitForm}
-      />
+      {Auth.isAuthenticated() ? (
+        <Redirect to="/" />
+      ) : (
+          <LoginForm
+            textField={{
+              usernameField: usernameField,
+              passwordField: passwordField
+            }}
+            handleChange={{
+              onChangeUsername: onChangeUsername,
+              onChangePassword: onChangePassword,
+            }}
+            handleSubmit={submitForm}
+          />
+        )}
     </div>
   )
 }

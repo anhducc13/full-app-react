@@ -45,7 +45,6 @@ export const AuthHeaderBar = withRouter(({ history }) => {
             loading: true,
           })
           const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['access_token'];
-          localStorage.removeItem('userInfoLogin')
           authService.logout(accessToken)
             .then(() => {
               setGlobal({
@@ -57,10 +56,12 @@ export const AuthHeaderBar = withRouter(({ history }) => {
                 'success'
               )
                 .then(() => {
-                  history.push('/')
+                  localStorage.removeItem('userInfoLogin')
+                  history.push('/login')
                 })
             })
             .catch(err => {
+              localStorage.removeItem('userInfoLogin')
               setGlobal({
                 loading: false,
               })

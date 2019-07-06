@@ -33,10 +33,15 @@ const resetPassword = (params, accessToken) => {
     return axios.post(`${URL}/auth/reset-password`, params, reqConfig)
 }
 
+const forgotPassword = params => {
+    return axios.post(`${URL}/auth/forgot-password`, params)
+}
+
 export default {
     login,
     logout,
     register,
     verify,
     resetPassword,
+    forgotPassword
 }

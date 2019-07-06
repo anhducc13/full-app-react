@@ -2,8 +2,8 @@ import React from 'react';
 import { useGlobal } from 'reactn'
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom'
-import { AuthHeaderBar } from './components/shared/AuthHeader'
-import { AppRoutes } from './routes'
+import { AuthHeaderBar } from 'components/shared/AuthHeader'
+import { AppRoutes } from 'routes'
 
 function App() {
   const [ loading ] = useGlobal('loading'); 
