@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useGlobal } from 'reactn'
 import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom'
+import { AuthHeaderBar } from './components/shared/AuthHeader'
+import { AppRoutes } from './routes'
 
 function App() {
+  const [ loading ] = useGlobal('loading'); 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {loading && (
+      <div id="loader-wrapper">
+        <div id="loader"></div>
+      </div>
+    )}
+      <Router>
+        <AuthHeaderBar />
+        <AppRoutes />
+      </Router>
     </div>
   );
 }
