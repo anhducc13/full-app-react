@@ -1,12 +1,21 @@
 import React from 'react';
-import { useGlobal } from 'reactn'
+import { useGlobal, setGlobal } from 'reactn'
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom'
 import { AuthHeaderBar } from 'components/shared/AuthHeader'
 import { AppRoutes } from 'routes'
 
 function App() {
-  const [ loading ] = useGlobal('loading'); 
+  const [ loading ] = useGlobal('loading');
+
+  setGlobal({
+    initTextField : {
+      value: '',
+      error: '',
+      valid: false,
+    },
+  });
+
   return (
     <div className="App">
       {loading && (

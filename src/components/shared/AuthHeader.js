@@ -92,7 +92,7 @@ export const AuthHeaderBar = withRouter(({ history }) => {
           {Auth.isAuthenticated() ? (
             <div>
               <Button color="inherit" component={Link} to="/profile">Profile</Button>
-              <Button color="inherit" component={Link} to="/reset-password">Reset Password</Button>
+              <Button color="inherit" component={Link} to="/update-password">Reset Password</Button>
               <Button color="inherit" onClick={handleLogout}>Logout</Button>
             </div>
           ) : (
