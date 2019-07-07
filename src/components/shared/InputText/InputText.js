@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 
 export const InputText = (props) => {
   const { name, label, textField, type, onChange} = props;
+
   return (
     <TextField
       variant="outlined"

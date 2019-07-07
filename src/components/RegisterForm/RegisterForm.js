@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal, useGlobal } from 'reactn';
+import { setGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -43,7 +43,11 @@ const useStyles = makeStyles(theme => ({
 export const RegisterForm = (props) => {
   const classes = useStyles();
 
-  const [initTextField] = useGlobal('initTextField');
+  const initTextField = {
+    value: '',
+    error: '',
+    valid: false,
+  };
   const [usernameField, setUsernameField] = useState(initTextField);
   const [emailField, setEmailField] = useState(initTextField);
   const [passwordField, setPasswordField] = useState(initTextField);
@@ -111,14 +115,14 @@ export const RegisterForm = (props) => {
         setGlobal({
           loading: false,
         })
-        if (err.response.status && err.response.status === 400) {
+        if (err.response && err.response.status === 400) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Dữ liệu đầu vào có vấn đề',
             'error'
           )
         }
-        else if (err.response.status && err.response.status === 409) {
+        else if (err.response && err.response.status === 409) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Username hoặc email đã được đăng ký trước đó',
@@ -171,6 +175,10 @@ export const RegisterForm = (props) => {
           />
           <ButtonCustom
             displayText="Register"
+            disabled={
+              !usernameField.valid || !passwordField.valid ||
+              !emailField.valid || !confirmPasswordField.valid
+            }
           />
 
           <Grid container>

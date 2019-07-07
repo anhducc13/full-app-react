@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal, useGlobal } from 'reactn';
+import { setGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -43,7 +43,12 @@ const useStyles = makeStyles(theme => ({
 export const LoginForm = (props) => {
   const classes = useStyles();
 
-  const [initTextField] = useGlobal('initTextField');
+  const initTextField = {
+    value: '',
+    error: '',
+    valid: false,
+  };
+
   const [usernameField, setUsernameField] = useState(initTextField);
   const [passwordField, setPasswordField] = useState(initTextField);
 
@@ -89,16 +94,17 @@ export const LoginForm = (props) => {
         }
       })
       .catch(err => {
+        console.log(err)
         setGlobal({
           loading: false
         });
-        if (err.response.status && err.response.status === 404) {
+        if (err.response && err.response.status === 404) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Tài khoản hoặc mật khẩu không chính xác',
             'error'
           )
-        } else if (err.response.status && err.response.status === 400) {
+        } else if (err.reponse && err.response.status === 400) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Dữ liệu đầu vào có vấn đề',
@@ -138,6 +144,7 @@ export const LoginForm = (props) => {
           />
           <ButtonCustom
             displayText="Login"
+            disabled={!usernameField.valid || !passwordField.valid}
           />
           <Grid container>
             <Grid item xs>

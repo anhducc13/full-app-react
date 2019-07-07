@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Text should render correctly 1`] = `
+<WithStyles(ForwardRef(TextField))
+  error={false}
+  fullWidth={true}
+  helperText=""
+  id=""
+  label=""
+  margin="normal"
+  name=""
+  onChange={[MockFunction]}
+  required={true}
+  type="text"
+  value=""
+  variant="outlined"
+/>
+`;

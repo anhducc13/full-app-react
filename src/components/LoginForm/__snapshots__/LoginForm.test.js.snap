@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login Form Render should render correctly 1`] = `
+<WithStyles(ForwardRef(Container))
+  component="main"
+  maxWidth="sm"
+>
+  <CssBaseline />
+  <div
+    className="makeStyles-paper-1"
+  >
+    <WithStyles(ForwardRef(Avatar))
+      className="makeStyles-avatar-2"
+    >
+      <LockOutlinedIcon />
+    </WithStyles(ForwardRef(Avatar))>
+    <WithStyles(ForwardRef(Typography))
+      component="h1"
+      variant="h4"
+    >
+      Login
+    </WithStyles(ForwardRef(Typography))>
+    <form
+      className="makeStyles-form-3"
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <InputText
+        label="Username"
+        name="username"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="text"
+      />
+      <InputText
+        label="Password"
+        name="password"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="password"
+      />
+      <Button
+        disabled={true}
+        displayText="Login"
+      />
+      <WithStyles(ForwardRef(Grid))
+        container={true}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={true}
+        >
+          <WithStyles(ForwardRef(Link))
+            component={[Function]}
+            to="/forgot-password"
+            variant="body2"
+          >
+            Forgot password?
+          </WithStyles(ForwardRef(Link))>
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
+          <WithStyles(ForwardRef(Link))
+            component={[Function]}
+            to="/register"
+            variant="body2"
+          >
+            Don't have an account? Register
+          </WithStyles(ForwardRef(Link))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </form>
+  </div>
+</WithStyles(ForwardRef(Container))>
+`;

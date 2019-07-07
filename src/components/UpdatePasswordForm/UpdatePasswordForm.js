@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal, useGlobal } from 'reactn';
+import { setGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -42,7 +42,11 @@ const useStyles = makeStyles(theme => ({
 export const UpdatePasswordForm = (props) => {
   const classes = useStyles();
 
-  const [initTextField] = useGlobal('initTextField');
+  const initTextField = {
+    value: '',
+    error: '',
+    valid: false,
+  };
   const [passwordField, setPasswordField] = useState(initTextField);
   const [newPasswordField, setNewPasswordField] = useState(initTextField);
   const [confirmNewPasswordField, setConfirmNewPasswordField] = useState(initTextField);
@@ -104,7 +108,7 @@ export const UpdatePasswordForm = (props) => {
         setGlobal({
           loading: false,
         })
-        if (err.response.status && err.response.status === 401) {
+        if (err.response && err.response.status === 401) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Từ chối truy cập',
@@ -113,7 +117,7 @@ export const UpdatePasswordForm = (props) => {
             .then(() => {
               props.history.push('/error')
             })
-        } else if (err.response.data.message && err.response.data.message === "password is not match") {
+        } else if (err.response && err.response.data.message === "password is not match") {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Mật khẩu nhập không chính xác',
@@ -159,6 +163,10 @@ export const UpdatePasswordForm = (props) => {
           />
           <ButtonCustom
             displayText="Update"
+            disabled={
+              !passwordField.valid || !newPasswordField.valid || 
+              !confirmNewPasswordField.valid
+            }
           />
           <Grid container>
             <Link to="/home" variant="body2" component={RouteLink}>
