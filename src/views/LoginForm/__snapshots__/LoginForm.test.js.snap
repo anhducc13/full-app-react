@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginForm should render correctly 1`] = `
+<WithStyles(ForwardRef(Container))
+  component="main"
+  maxWidth="sm"
+>
+  <CssBaseline />
+  <div
+    className="makeStyles-paper-1"
+  >
+    <WithStyles(ForwardRef(Avatar))
+      className="makeStyles-avatar-2"
+    >
+      <LockOutlinedIcon />
+    </WithStyles(ForwardRef(Avatar))>
+    <WithStyles(ForwardRef(Typography))
+      component="h1"
+      variant="h4"
+    >
+      Login
+    </WithStyles(ForwardRef(Typography))>
+    <form
+      className="makeStyles-form-3"
+      noValidate={true}
+      onSubmit={[MockFunction]}
+    >
+      <WithStyles(ForwardRef(TextField))
+        autoFocus={true}
+        error={false}
+        fullWidth={true}
+        helperText=""
+        id="username"
+        label="Username"
+        margin="normal"
+        name="username"
+        onChange={[MockFunction]}
+        required={true}
+        value=""
+        variant="outlined"
+      />
+      <WithStyles(ForwardRef(TextField))
+        error={false}
+        fullWidth={true}
+        helperText=""
+        id="password"
+        label="Password"
+        margin="normal"
+        name="password"
+        onChange={[MockFunction]}
+        required={true}
+        type="password"
+        value=""
+        variant="outlined"
+      />
+      <WithStyles(ForwardRef(Button))
+        className="makeStyles-submit-4"
+        color="primary"
+        disabled={true}
+        fullWidth={true}
+        size="large"
+        type="submit"
+        variant="contained"
+      >
+        Sign In
+      </WithStyles(ForwardRef(Button))>
+      <WithStyles(ForwardRef(Grid))
+        container={true}
+      >
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+          xs={true}
+        >
+          <WithStyles(ForwardRef(Link))
+            component={[Function]}
+            to="/forgot-password"
+            variant="body2"
+          >
+            Forgot password?
+          </WithStyles(ForwardRef(Link))>
+        </WithStyles(ForwardRef(Grid))>
+        <WithStyles(ForwardRef(Grid))
+          item={true}
+        >
+          <WithStyles(ForwardRef(Link))
+            component={[Function]}
+            to="/register"
+            variant="body2"
+          >
+            Don't have an account? Register
+          </WithStyles(ForwardRef(Link))>
+        </WithStyles(ForwardRef(Grid))>
+      </WithStyles(ForwardRef(Grid))>
+    </form>
+  </div>
+</WithStyles(ForwardRef(Container))>
+`;

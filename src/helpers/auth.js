@@ -5,4 +5,7 @@ export const Auth = {
         if(Date.now() - userInfoLogin['time_expired'] < 0) return false
         return true;
     },
+    isAdmin() {
+        return false;
+    }
 }

@@ -54,7 +54,7 @@ export const LoginForm = (props) => {
         </Avatar>
         <Typography component="h1" variant="h4">
           Login
-                </Typography>
+        </Typography>
         <form className={classes.form} onSubmit={submitForm} noValidate>
           <TextField
             variant="outlined"

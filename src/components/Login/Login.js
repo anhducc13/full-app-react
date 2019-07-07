@@ -134,19 +134,20 @@ export const Login = (props) => {
       })
   }
 
+
   return (
     <div>
       {Auth.isAuthenticated() ? (
-        <Redirect to="/" />
+        <Redirect to="/home" />
       ) : (
           <LoginForm
             textField={{
-              usernameField: usernameField,
-              passwordField: passwordField
+              usernameField,
+              passwordField,
             }}
             handleChange={{
-              onChangeUsername: onChangeUsername,
-              onChangePassword: onChangePassword,
+              onChangeUsername,
+              onChangePassword,
             }}
             handleSubmit={submitForm}
           />
