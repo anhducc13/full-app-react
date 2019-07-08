@@ -54,39 +54,38 @@ export const RegisterForm = (props) => {
   const [confirmPasswordField, setConfirmPasswordField] = useState(initTextField);
 
   const onChangeEmail = (e) => {
-    let inputValidate = Object.assign(emailField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validateEmail(inputValidate);
+    let {value, error, valid} = emailField;
+    value = e.target.value;
+    const outputValidate = validateEmail({value, error, valid});
     setEmailField(outputValidate);
   }
 
   const onChangeUsername = (e) => {
-    let inputValidate = Object.assign(usernameField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validateUsername(inputValidate);
+    let {value, error, valid} = usernameField;
+    value = e.target.value;
+    const outputValidate = validateUsername({value, error, valid});
     setUsernameField(outputValidate);
   }
 
   const onChangePassword = (e) => {
-    let inputValidate = Object.assign(passwordField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validatePassword(inputValidate);
+    let {value, error, valid} = passwordField;
+    value = e.target.value;
+    const outputValidate = validatePassword({value, error, valid});
     setPasswordField(outputValidate);
   }
 
   const onChangeConfirmPassword = (e) => {
-    const { password } = passwordField;
-    let inputValidate = Object.assign(confirmPasswordField);
-    inputValidate.value = e.target.value;
+    let {value, error, valid} = confirmPasswordField;
+    value = e.target.value;
 
-    if (inputValidate.value !== password.value) {
-      inputValidate.error = 'Mật khẩu không khớp!';
-      inputValidate.valid = false;
+    if (value !== passwordField.value) {
+      error = 'Mật khẩu không khớp!';
+      valid = false;
     } else {
-      inputValidate.error = '';
-      inputValidate.valid = true;
+      error = '';
+      valid = true;
     }
-    setConfirmPasswordField(inputValidate);
+    setConfirmPasswordField({value, error, valid});
   }
 
   const onSubmitForm = (e) => {

@@ -52,45 +52,44 @@ export const UpdatePasswordForm = (props) => {
   const [confirmNewPasswordField, setConfirmNewPasswordField] = useState(initTextField);
 
   const onChangePassword = (e) => {
-    let inputValidate = Object.assign(passwordField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validatePassword(inputValidate);
+    let {value, error, valid} = passwordField;
+    value = e.target.value;
+    const outputValidate = validatePassword({value, error, valid});
     setPasswordField(outputValidate);
   }
 
   const onChangeNewPassword = (e) => {
-    let inputValidate = Object.assign(newPasswordField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validatePassword(inputValidate);
+    let {value, error, valid} = newPasswordField;
+    value = e.target.value;
+    const outputValidate = validatePassword({value, error, valid});
     setNewPasswordField(outputValidate);
   }
 
   const onChangeConfirmNewPassword = (e) => {
-    const { value } = newPasswordField;
-    let inputValidate = Object.assign(confirmNewPasswordField);
-    inputValidate.value = e.target.value;
+    let {value, error, valid} = confirmNewPasswordField;
+    value = e.target.value;
 
-    if (inputValidate.value !== value) {
-      inputValidate.error = 'Mật khẩu không khớp!';
-      inputValidate.valid = false;
+    if (value !== newPasswordField.value) {
+      error = 'Mật khẩu không khớp!';
+      valid = false;
     } else {
-      inputValidate.error = '';
-      inputValidate.valid = true;
+      error = '';
+      valid = true;
     }
-    setConfirmNewPasswordField(inputValidate);
+    setConfirmNewPasswordField({value, error, valid});
   }
 
   const onSubmitForm = (e) => {
     e.preventDefault()
     const payload = {
-      "old_pass": passwordField.value,
-      "new_pass": newPasswordField.value,
+      "old_password": passwordField.value,
+      "new_password": newPasswordField.value,
     }
     setGlobal({
       loading: true,
     })
     const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['access_token'];
-    authService.resetPassword(payload, accessToken)
+    authService.updatePassword(payload, accessToken)
       .then(() => {
         setGlobal({
           loading: false,
@@ -117,10 +116,16 @@ export const UpdatePasswordForm = (props) => {
             .then(() => {
               props.history.push('/error')
             })
-        } else if (err.response && err.response.data.message === "password is not match") {
+        } else if (err.response && err.response.data.message === '400 Bad Request: password is not match') {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Mật khẩu nhập không chính xác',
+            'error'
+          )
+        } else if (err.response && err.response.data.message === '400 Bad Request: two password is duplicate') {
+          Swal.fire(
+            'Có lỗi xảy ra!',
+            'Mật khẩu mới không được trùng với mật khẩu cũ',
             'error'
           )
         } else {

@@ -50,16 +50,16 @@ export const ForgotPasswordForm = (props) => {
   const [usernameField, setUsernameField] = useState(initTextField);
 
   const onChangeEmail = (e) => {
-    let inputValidate = Object.assign(emailField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validateEmail(inputValidate);
+    let {value, error, valid} = emailField;
+    value = e.target.value;
+    const outputValidate = validateEmail({value, error, valid});
     setEmailField(outputValidate);
   }
 
   const onChangeUsername = (e) => {
-    let inputValidate = Object.assign(usernameField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validateUsername(inputValidate);
+    let {value, error, valid} = usernameField;
+    value = e.target.value;
+    const outputValidate = validateUsername({value, error, valid});
     setUsernameField(outputValidate);
   }
 

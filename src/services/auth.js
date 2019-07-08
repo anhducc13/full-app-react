@@ -24,13 +24,13 @@ const logout = (accessToken) => {
     return axios.get(`${URL}/auth/logout`, reqConfig)
 }
 
-const resetPassword = (params, accessToken) => {
+const updatePassword = (params, accessToken) => {
     const reqConfig = {
         "headers": {
             "Authorization": accessToken,
         }
     }
-    return axios.post(`${URL}/auth/reset-password`, params, reqConfig)
+    return axios.post(`${URL}/auth/update-password`, params, reqConfig)
 }
 
 const forgotPassword = params => {
@@ -42,6 +42,6 @@ export default {
     logout,
     register,
     verify,
-    resetPassword,
+    updatePassword,
     forgotPassword
 }

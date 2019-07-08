@@ -14,7 +14,6 @@ import { Auth } from 'helpers/auth'
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -65,7 +64,7 @@ export const AuthHeaderBar = withRouter(({ history }) => {
               setGlobal({
                 loading: false,
               })
-              if (err.response.status && err.response.status === 401) {
+              if (err.response && err.response.status === 401) {
                 Swal.fire(
                   'Có lỗi xảy ra!',
                   'Từ chối truy cập',

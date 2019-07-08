@@ -53,16 +53,16 @@ export const LoginForm = (props) => {
   const [passwordField, setPasswordField] = useState(initTextField);
 
   const onChangeUsername = (e) => {
-    let inputValidate = Object.assign(usernameField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validateUsername(inputValidate);
+    let {value, error, valid} = usernameField;
+    value = e.target.value;
+    const outputValidate = validateUsername({value, error, valid});
     setUsernameField(outputValidate);
   }
 
   const onChangePassword = (e) => {
-    let inputValidate = Object.assign(passwordField);
-    inputValidate.value = e.target.value;
-    const outputValidate = validatePassword(inputValidate);
+    let {value, error, valid} = passwordField;
+    value = e.target.value;
+    const outputValidate = validatePassword({value, error, valid});
     setPasswordField(outputValidate);
   }
 
