@@ -98,16 +98,10 @@ export const LoginForm = (props) => {
         setGlobal({
           loading: false
         });
-        if (err.response && err.response.status === 404) {
+        if (err.response && err.response.status === 400) {
           Swal.fire(
             'Có lỗi xảy ra!',
             'Tài khoản hoặc mật khẩu không chính xác',
-            'error'
-          )
-        } else if (err.reponse && err.response.status === 400) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Dữ liệu đầu vào có vấn đề',
             'error'
           )
         } else {
