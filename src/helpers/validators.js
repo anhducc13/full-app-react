@@ -36,15 +36,15 @@ export const haveSpecialCharacter = (text) => {
 }
 
 export const validateUsername = ({ value, error, valid }) => {
-    if (
+    if (haveSpace(value)) {
+        error = 'Tên đăng nhập không được chứa khoảng trắng';
+        valid = false;
+    } else if (
         !haveLowerCharacter(value.toLowerCase())
         || !haveNumberCharacter(value)
         || haveSpecialCharacter(value)
     ) {
         error = 'Tên đăng nhập chỉ bao gồm chữ cái và số';
-        valid = false;
-    } else if (haveSpace(value)) {
-        error = 'Tên đăng nhập không được chứa khoảng trắng';
         valid = false;
     } else if (!validateLength(value, { min: 6, max: 128 })) {
         error = 'Tên đăng nhập có độ dài từ 6 đến 128 ký tự';
