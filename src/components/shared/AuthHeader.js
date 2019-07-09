@@ -1,25 +1,65 @@
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter, Link as RouterLink } from 'react-router-dom'
 import React from 'react';
 import { setGlobal } from 'reactn';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 import Swal from 'sweetalert2';
 import { authService } from 'services';
 import { Auth } from 'helpers/auth'
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  '@global': {
+    body: {
+      backgroundColor: theme.palette.common.white,
+    },
+    ul: {
+      margin: 0,
+      padding: 0,
+    },
+    li: {
+      listStyle: 'none',
+    },
+  },
+  appBar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
+  toolbar: {
+    flexWrap: 'wrap',
+  },
+  toolbarTitle: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  link: {
+    margin: theme.spacing(1, 1.5),
+    textTransform: "uppercase"
   },
-  title: {
-    flexGrow: 1,
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+  cardHeader: {
+    backgroundColor: theme.palette.grey[200],
+  },
+  cardPricing: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'baseline',
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    marginTop: theme.spacing(8),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    [theme.breakpoints.up('sm')]: {
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
+    },
   },
 }));
 
@@ -82,28 +122,65 @@ export const AuthHeaderBar = withRouter(({ history }) => {
   }
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            DUCTT
+    // <div className={classes.root}>
+    //   <AppBar position="static">
+    //     <Toolbar>
+    //       <Typography variant="h6" className={classes.title}>
+    //         DUCTT
+    //       </Typography>
+    //       {Auth.isAuthenticated() ? (
+    //         <div>
+    //           <Button color="inherit" component={Link} to="/profile">Profile</Button>
+    //           <Button color="inherit" component={Link} to="/update-password">Reset Password</Button>
+    //           <Button color="inherit" onClick={handleLogout}>Logout</Button>
+    //         </div>
+    //       ) : (
+    //           <div>
+    //             <Button color="inherit" component={Link} to="/login">Login</Button>
+    //             <Button color="inherit" component={Link} to="/register">Register</Button>
+    //           </div>
+
+    //         )}
+
+    //     </Toolbar>
+    //   </AppBar>
+    // </div>
+    <React.Fragment>
+      <CssBaseline />
+      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+        <Toolbar className={classes.toolbar}>
+          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+            {Auth.isAuthenticated() ? `Welcome ${Auth.username}` : 'DUCTT'}
           </Typography>
           {Auth.isAuthenticated() ? (
-            <div>
-              <Button color="inherit" component={Link} to="/profile">Profile</Button>
-              <Button color="inherit" component={Link} to="/update-password">Reset Password</Button>
-              <Button color="inherit" onClick={handleLogout}>Logout</Button>
-            </div>
+            <React.Fragment>
+              <nav>
+                <Link variant="button" color="textPrimary" to="/profile" component={RouterLink} className={classes.link}>
+                  Profile
+                </Link>
+                <Link variant="button" color="textPrimary" to="/update-password" component={RouterLink} className={classes.link}>
+                  Update Password
+                </Link>
+              </nav>
+              <Button onClick={handleLogout} color="primary" variant="outlined" className={classes.link}>
+                Logout
+              </Button>
+            </React.Fragment>
           ) : (
-              <div>
-                <Button color="inherit" component={Link} to="/login">Login</Button>
-                <Button color="inherit" component={Link} to="/register">Register</Button>
-              </div>
-
+              <nav>
+                <Link variant="button" color="textPrimary" to="/login" component={RouterLink} className={classes.link}>
+                  Login
+            </Link>
+                <Link variant="button" color="textPrimary" to="/register" component={RouterLink} className={classes.link}>
+                  Register
+            </Link>
+                <Link variant="button" color="textPrimary" to="/forgot-password" component={RouterLink} className={classes.link}>
+                  Forgot Password
+            </Link>
+              </nav>
             )}
-
         </Toolbar>
       </AppBar>
-    </div>
+    </React.Fragment>
   )
 })
