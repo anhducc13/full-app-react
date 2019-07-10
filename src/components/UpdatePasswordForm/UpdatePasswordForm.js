@@ -142,40 +142,40 @@ export const UpdatePasswordForm = (props) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Reset Password
+          Thay đổi mật khẩu
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmitForm}>
           <InputText
             textField={passwordField}
             name="password"
-            label="Password"
+            label="Mật khẩu cũ"
             type="password"
             onChange={onChangePassword}
           />
           <InputText
             textField={newPasswordField}
             name="new-password"
-            label="New Password"
+            label="Mật khẩu mới"
             type="password"
             onChange={onChangeNewPassword}
           />
           <InputText
             textField={confirmNewPasswordField}
             name="confirm-new-password"
-            label="Confirm New Password"
+            label="Nhập lại mật khẩu mới"
             type="password"
             onChange={onChangeConfirmNewPassword}
           />
           <ButtonCustom
-            displayText="Update"
+            displayText="Thay đổi"
             disabled={
               !passwordField.valid || !newPasswordField.valid || 
               !confirmNewPasswordField.valid
             }
           />
           <Grid container>
-            <Link to="/home" variant="body2" component={RouteLink}>
-              Back to home
+            <Link to="/" variant="body2" component={RouteLink}>
+              Về trang chủ
             </Link>
           </Grid>
         </form>

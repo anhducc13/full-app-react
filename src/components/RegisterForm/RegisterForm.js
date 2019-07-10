@@ -141,7 +141,7 @@ export const RegisterForm = (props) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Register
+          Đăng ký
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmitForm}>
           <InputText
@@ -154,26 +154,26 @@ export const RegisterForm = (props) => {
           <InputText
             textField={usernameField}
             name="username"
-            label="Username"
+            label="Tên đăng nhập"
             type="text"
             onChange={onChangeUsername}
           />
           <InputText
             textField={passwordField}
             name="password"
-            label="Password"
+            label="Mật khẩu"
             type="password"
             onChange={onChangePassword}
           />
           <InputText
             textField={confirmPasswordField}
             name="confirm-password"
-            label="Confirm Password"
+            label="Nhập lại mật khẩu"
             type="password"
             onChange={onChangeConfirmPassword}
           />
           <ButtonCustom
-            displayText="Register"
+            displayText="Đăng ký"
             disabled={
               !usernameField.valid || !passwordField.valid ||
               !emailField.valid || !confirmPasswordField.valid
@@ -181,8 +181,8 @@ export const RegisterForm = (props) => {
           />
 
           <Grid container>
-            <Link to="/login" variant="body2" component={RouteLink}>
-              Have an account? Login
+            <Link to="/dang-nhap" variant="body2" component={RouteLink}>
+              Đã có tài khoản? Đăng ký
             </Link>
           </Grid>
         </form>

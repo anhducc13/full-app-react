@@ -12,12 +12,12 @@ export const AuthRoutes = () => {
   return (
     <React.Fragment>
       <PrivateRoute exact path="/" component={Home} />
-      <PrivateRoute exact path="/home" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/forgot-password" component={ForgotPassword} />
-      <PrivateRoute exact path="/profile" component={Profile} />
-      <PrivateRoute exact path="/update-password" component={UpdatePassword} />
+      <PrivateRoute exact path="/trang-chu" component={Home} />
+      <Route exact path="/dang-nhap" component={Login} />
+      <Route exact path="/dang-ky" component={Register} />
+      <Route exact path="/quen-mat-khau" component={ForgotPassword} />
+      <PrivateRoute exact path="/trang-ca-nhan" component={Profile} />
+      <PrivateRoute exact path="/doi-mat-khau" component={UpdatePassword} />
     </React.Fragment>
   )
 }

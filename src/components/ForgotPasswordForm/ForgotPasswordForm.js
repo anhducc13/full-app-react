@@ -115,7 +115,7 @@ export const ForgotPasswordForm = (props) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Forgot Password
+          Quên mật khẩu
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmitForm}>
           <InputText
@@ -128,19 +128,19 @@ export const ForgotPasswordForm = (props) => {
           <InputText
             textField={usernameField}
             name="username"
-            label="Username"
+            label="Tên đăng nhập"
             type="text"
             onChange={onChangeUsername}
           />
           <ButtonCustom 
-            displayText="Reset"
+            displayText="Nhận mật khẩu mới"
             disabled={
               !usernameField.valid || !emailField.valid
             }
           />
           <Grid container>
-            <Link to="/login" variant="body2" component={RouteLink}>
-              Have an account? Login
+            <Link to="/dang-nhap" variant="body2" component={RouteLink}>
+              Đã có tài khoản? Đăng nhập
             </Link>
           </Grid>
         </form>

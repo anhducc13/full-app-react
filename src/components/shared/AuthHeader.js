@@ -96,7 +96,7 @@ export const AuthHeaderBar = withRouter(({ history }) => {
               )
                 .then(() => {
                   localStorage.removeItem('userInfoLogin')
-                  history.push('/login')
+                  history.push('/dang-nhap')
                 })
             })
             .catch(err => {
@@ -104,78 +104,44 @@ export const AuthHeaderBar = withRouter(({ history }) => {
               setGlobal({
                 loading: false,
               })
-              if (err.response && err.response.status === 401) {
-                Swal.fire(
-                  'Có lỗi xảy ra!',
-                  'Từ chối truy cập',
-                  'error'
-                )
-                  .then(() => {
-                    history.push('/error')
-                  })
-              } else {
-                history.push('/error')
-              }
+              history.push('/dang-nhap')
             })
         }
       })
   }
 
   return (
-    // <div className={classes.root}>
-    //   <AppBar position="static">
-    //     <Toolbar>
-    //       <Typography variant="h6" className={classes.title}>
-    //         DUCTT
-    //       </Typography>
-    //       {Auth.isAuthenticated() ? (
-    //         <div>
-    //           <Button color="inherit" component={Link} to="/profile">Profile</Button>
-    //           <Button color="inherit" component={Link} to="/update-password">Reset Password</Button>
-    //           <Button color="inherit" onClick={handleLogout}>Logout</Button>
-    //         </div>
-    //       ) : (
-    //           <div>
-    //             <Button color="inherit" component={Link} to="/login">Login</Button>
-    //             <Button color="inherit" component={Link} to="/register">Register</Button>
-    //           </div>
-
-    //         )}
-
-    //     </Toolbar>
-    //   </AppBar>
-    // </div>
     <React.Fragment>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            {Auth.isAuthenticated() ? `Welcome ${Auth.username}` : 'DUCTT'}
+            {Auth.isAuthenticated() ? `Xin chào ${Auth.username}` : 'DUCTT'}
           </Typography>
           {Auth.isAuthenticated() ? (
             <React.Fragment>
               <nav>
-                <Link variant="button" color="textPrimary" to="/profile" component={RouterLink} className={classes.link}>
-                  Profile
+                <Link variant="button" color="textPrimary" to="/trang-ca-nhan" component={RouterLink} className={classes.link}>
+                  Trang cá nhân
                 </Link>
-                <Link variant="button" color="textPrimary" to="/update-password" component={RouterLink} className={classes.link}>
-                  Update Password
+                <Link variant="button" color="textPrimary" to="/doi-mat-khau" component={RouterLink} className={classes.link}>
+                  Đổi mật khẩu
                 </Link>
               </nav>
               <Button onClick={handleLogout} color="primary" variant="outlined" className={classes.link}>
-                Logout
+                Đăng xuất
               </Button>
             </React.Fragment>
           ) : (
               <nav>
-                <Link variant="button" color="textPrimary" to="/login" component={RouterLink} className={classes.link}>
-                  Login
+                <Link variant="button" color="textPrimary" to="/dang-nhap" component={RouterLink} className={classes.link}>
+                  Đăng nhập
             </Link>
-                <Link variant="button" color="textPrimary" to="/register" component={RouterLink} className={classes.link}>
-                  Register
+                <Link variant="button" color="textPrimary" to="/dang-ky" component={RouterLink} className={classes.link}>
+                  Đăng ký
             </Link>
-                <Link variant="button" color="textPrimary" to="/forgot-password" component={RouterLink} className={classes.link}>
-                  Forgot Password
+                <Link variant="button" color="textPrimary" to="/quen-mat-khau" component={RouterLink} className={classes.link}>
+                  Quên mật khẩu
             </Link>
               </nav>
             )}

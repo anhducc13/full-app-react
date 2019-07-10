@@ -77,10 +77,11 @@ export const LoginForm = (props) => {
     });
     authService.login(params)
       .then(res => {
+        print(res)
         setGlobal({
           loading: false
         });
-        if (res.status === 200) {
+        if (res.code === 200) {
           const userInfoLogin = res.data;
           localStorage.setItem('userInfoLogin', JSON.stringify(userInfoLogin));
           Swal.fire(
@@ -119,36 +120,36 @@ export const LoginForm = (props) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h4">
-          Login
+          Đăng nhập
         </Typography>
         <form className={classes.form} onSubmit={onSubmitForm} noValidate>
           <InputText
             textField={usernameField}
             name="username"
-            label="Username"
+            label="Tên đăng nhập"
             type="text"
             onChange={onChangeUsername}
           />
           <InputText
             textField={passwordField}
             name="password"
-            label="Password"
+            label="Mật khẩu"
             type="password"
             onChange={onChangePassword}
           />
           <ButtonCustom
-            displayText="Login"
+            displayText="Đăng nhập"
             disabled={!usernameField.valid || !passwordField.valid}
           />
           <Grid container>
             <Grid item xs>
-              <Link to="/forgot-password" variant="body2" component={RouteLink}>
-                Forgot password?
+              <Link to="/quen-mat-khau" variant="body2" component={RouteLink}>
+                Quên mật khẩu?
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/register" variant="body2" component={RouteLink}>
-                Don't have an account? Register
+              <Link to="/dang-ky" variant="body2" component={RouteLink}>
+                Chưa có tài khoản? Đăng ký
               </Link>
             </Grid>
           </Grid>

@@ -7,7 +7,7 @@ export const Login = (props) => {
   return (
     <div>
       {Auth.isAuthenticated() ? (
-        <Redirect to="/home" />
+        <Redirect to="/" />
       ) : (
           <LoginForm {...props}/>
         )}
