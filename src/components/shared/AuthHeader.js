@@ -1,5 +1,5 @@
 import { withRouter, Link as RouterLink } from 'react-router-dom'
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setGlobal } from 'reactn';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -65,6 +65,28 @@ const useStyles = makeStyles(theme => ({
 
 
 export const AuthHeaderBar = withRouter(({ history }) => {
+  history.listen((location, action) => {
+    if (action) {
+      if (!Auth.isAuthenticated()) {
+        const userInfoLogin = localStorage.getItem('userInfoLogin');
+        if (userInfoLogin) {
+          const accessToken = JSON.parse(userInfoLogin)['accessToken'];
+          authService.logout(accessToken)
+            .catch(() => {
+              Swal.fire(
+                'Có lỗi xảy ra!',
+                'Phiên làm việc kết thúc, vui lòng đăng nhập để tiếp tục',
+                'error'
+              )
+                .then(() => {
+                  history.push('/dang-nhap');
+                })
+            })
+        }
+      }
+    }
+  });
+
 
   const classes = useStyles();
 
@@ -83,7 +105,7 @@ export const AuthHeaderBar = withRouter(({ history }) => {
           setGlobal({
             loading: true,
           })
-          const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['access_token'];
+          const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['accessToken'];
           authService.logout(accessToken)
             .then(() => {
               setGlobal({

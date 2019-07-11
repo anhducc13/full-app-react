@@ -50,16 +50,16 @@ export const ForgotPasswordForm = (props) => {
   const [usernameField, setUsernameField] = useState(initTextField);
 
   const onChangeEmail = (e) => {
-    let {value, error, valid} = emailField;
+    let { value, error, valid } = emailField;
     value = e.target.value;
-    const outputValidate = validateEmail({value, error, valid});
+    const outputValidate = validateEmail({ value, error, valid });
     setEmailField(outputValidate);
   }
 
   const onChangeUsername = (e) => {
-    let {value, error, valid} = usernameField;
+    let { value, error, valid } = usernameField;
     value = e.target.value;
-    const outputValidate = validateUsername({value, error, valid});
+    const outputValidate = validateUsername({ value, error, valid });
     setUsernameField(outputValidate);
   }
 
@@ -89,11 +89,14 @@ export const ForgotPasswordForm = (props) => {
           loading: false,
         })
         if (err.response && err.response.status === 400) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Dữ liệu đầu vào có vấn đề',
-            'error'
-          )
+          if (err.response.data && err.response.data.typeError === 2)
+            Swal.fire(
+              'Có lỗi xảy ra!',
+              'Tài khoản chưa được xác thực, vui lòng kiểm tra email',
+              'error'
+            )
+          else
+            props.history.push('/error')
         }
         else if (err.response && err.response.status === 404) {
           Swal.fire(
@@ -132,7 +135,7 @@ export const ForgotPasswordForm = (props) => {
             type="text"
             onChange={onChangeUsername}
           />
-          <ButtonCustom 
+          <ButtonCustom
             displayText="Nhận mật khẩu mới"
             disabled={
               !usernameField.valid || !emailField.valid

@@ -14,6 +14,7 @@ import { InputText } from '../shared/InputText';
 import Swal from 'sweetalert2';
 import { authService } from 'services';
 import { validateUsername, validatePassword } from 'helpers/validators';
+import { successSwal, errorSwal } from 'helpers/swal';
 
 
 const useStyles = makeStyles(theme => ({
@@ -53,16 +54,16 @@ export const LoginForm = (props) => {
   const [passwordField, setPasswordField] = useState(initTextField);
 
   const onChangeUsername = (e) => {
-    let {value, error, valid} = usernameField;
+    let { value, error, valid } = usernameField;
     value = e.target.value;
-    const outputValidate = validateUsername({value, error, valid});
+    const outputValidate = validateUsername({ value, error, valid });
     setUsernameField(outputValidate);
   }
 
   const onChangePassword = (e) => {
-    let {value, error, valid} = passwordField;
+    let { value, error, valid } = passwordField;
     value = e.target.value;
-    const outputValidate = validatePassword({value, error, valid});
+    const outputValidate = validatePassword({ value, error, valid });
     setPasswordField(outputValidate);
   }
 
@@ -77,37 +78,31 @@ export const LoginForm = (props) => {
     });
     authService.login(params)
       .then(res => {
-        print(res)
         setGlobal({
           loading: false
         });
-        if (res.code === 200) {
+        if (res.status === 200) {
           const userInfoLogin = res.data;
           localStorage.setItem('userInfoLogin', JSON.stringify(userInfoLogin));
-          Swal.fire(
-            'Thành công!',
-            `Xin chào ${userInfoLogin['username']} quay trở lại`,
-            'success'
-          )
-            .then(() => {
-              props.history.push('/home');
-            })
+          successSwal({
+            title: 'Thành công!',
+            content: `Xin chào ${userInfoLogin['username']} quay trở lại`
+          }, () => {
+            props.history.push('/');
+          })
         }
       })
       .catch(err => {
-        console.log(err)
         setGlobal({
           loading: false
         });
-        if (err.response && err.response.status === 400) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Tài khoản hoặc mật khẩu không chính xác',
-            'error'
-          )
-        } else {
+        if (err.response && err.response.data)
+          errorSwal({
+            title: 'Có lỗi xảy ra!',
+            content: err.response.data.message || ''
+          })
+        else
           props.history.push('/error');
-        }
       })
   }
 

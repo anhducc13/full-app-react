@@ -13,7 +13,8 @@ import { Button as ButtonCustom } from '../shared/Button';
 import { InputText } from '../shared/InputText';
 import Swal from 'sweetalert2';
 import { authService } from 'services';
-import { validateUsername, validatePassword, validateEmail } from 'helpers/validators'
+import { validateUsername, validatePassword, validateEmail } from 'helpers/validators';
+import { successSwal, errorSwal } from 'helpers/swal';
 
 
 const useStyles = makeStyles(theme => ({
@@ -54,28 +55,28 @@ export const RegisterForm = (props) => {
   const [confirmPasswordField, setConfirmPasswordField] = useState(initTextField);
 
   const onChangeEmail = (e) => {
-    let {value, error, valid} = emailField;
+    let { value, error, valid } = emailField;
     value = e.target.value;
-    const outputValidate = validateEmail({value, error, valid});
+    const outputValidate = validateEmail({ value, error, valid });
     setEmailField(outputValidate);
   }
 
   const onChangeUsername = (e) => {
-    let {value, error, valid} = usernameField;
+    let { value, error, valid } = usernameField;
     value = e.target.value;
-    const outputValidate = validateUsername({value, error, valid});
+    const outputValidate = validateUsername({ value, error, valid });
     setUsernameField(outputValidate);
   }
 
   const onChangePassword = (e) => {
-    let {value, error, valid} = passwordField;
+    let { value, error, valid } = passwordField;
     value = e.target.value;
-    const outputValidate = validatePassword({value, error, valid});
+    const outputValidate = validatePassword({ value, error, valid });
     setPasswordField(outputValidate);
   }
 
   const onChangeConfirmPassword = (e) => {
-    let {value, error, valid} = confirmPasswordField;
+    let { value, error, valid } = confirmPasswordField;
     value = e.target.value;
 
     if (value !== passwordField.value) {
@@ -85,7 +86,7 @@ export const RegisterForm = (props) => {
       error = '';
       valid = true;
     }
-    setConfirmPasswordField({value, error, valid});
+    setConfirmPasswordField({ value, error, valid });
   }
 
   const onSubmitForm = (e) => {
@@ -103,30 +104,32 @@ export const RegisterForm = (props) => {
         setGlobal({
           loading: false,
         })
-        Swal.fire(
-          'Thành công!',
-          'Vui lòng kiểm tra email xác thực tài khoản để có thể đăng nhập vào trang web',
-          'success'
-        )
-        props.history.push('/')
+        successSwal({
+          title: 'Thành công!',
+          content: 'Vui lòng kiểm tra email xác thực tài khoản để có thể đăng nhập vào trang web'
+        }, () => {
+          props.history.push('/dang-nhap')
+        })
       })
       .catch(err => {
         setGlobal({
           loading: false,
         })
         if (err.response && err.response.status === 400) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Dữ liệu đầu vào có vấn đề',
-            'error'
-          )
-        }
-        else if (err.response && err.response.status === 409) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Username hoặc email đã được đăng ký trước đó',
-            'error'
-          )
+          if (err.response.data && err.response.data.typeError === 2)
+            Swal.fire(
+              'Có lỗi xảy ra!',
+              'Username hoặc email đã được đăng ký trước đó',
+              'error'
+            )
+          else if (err.response.data && err.response.data.typeError === 3)
+            Swal.fire(
+              'Có lỗi xảy ra!',
+              'Tài khoản đã tồn tại nhưng chưa được xác thực, vui lòng kiểm tra email',
+              'error'
+            )
+          else
+            props.history.push('/error')
         } else {
           props.history.push('/error')
         }

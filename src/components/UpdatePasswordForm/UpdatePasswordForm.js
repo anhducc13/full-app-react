@@ -52,21 +52,21 @@ export const UpdatePasswordForm = (props) => {
   const [confirmNewPasswordField, setConfirmNewPasswordField] = useState(initTextField);
 
   const onChangePassword = (e) => {
-    let {value, error, valid} = passwordField;
+    let { value, error, valid } = passwordField;
     value = e.target.value;
-    const outputValidate = validatePassword({value, error, valid});
+    const outputValidate = validatePassword({ value, error, valid });
     setPasswordField(outputValidate);
   }
 
   const onChangeNewPassword = (e) => {
-    let {value, error, valid} = newPasswordField;
+    let { value, error, valid } = newPasswordField;
     value = e.target.value;
-    const outputValidate = validatePassword({value, error, valid});
+    const outputValidate = validatePassword({ value, error, valid });
     setNewPasswordField(outputValidate);
   }
 
   const onChangeConfirmNewPassword = (e) => {
-    let {value, error, valid} = confirmNewPasswordField;
+    let { value, error, valid } = confirmNewPasswordField;
     value = e.target.value;
 
     if (value !== newPasswordField.value) {
@@ -76,7 +76,7 @@ export const UpdatePasswordForm = (props) => {
       error = '';
       valid = true;
     }
-    setConfirmNewPasswordField({value, error, valid});
+    setConfirmNewPasswordField({ value, error, valid });
   }
 
   const onSubmitForm = (e) => {
@@ -88,7 +88,7 @@ export const UpdatePasswordForm = (props) => {
     setGlobal({
       loading: true,
     })
-    const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['access_token'];
+    const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['accessToken'];
     authService.updatePassword(payload, accessToken)
       .then(() => {
         setGlobal({
@@ -100,37 +100,32 @@ export const UpdatePasswordForm = (props) => {
           'success'
         )
           .then(() => {
-            props.history.push('/home')
+            props.history.push('/')
           })
       })
       .catch(err => {
+        console.log(err.response)
         setGlobal({
           loading: false,
         })
-        if (err.response && err.response.status === 401) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Từ chối truy cập',
-            'error'
-          )
-            .then(() => {
-              props.history.push('/error')
-            })
-        } else if (err.response && err.response.data.message === '400 Bad Request: password is not match') {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Mật khẩu nhập không chính xác',
-            'error'
-          )
-        } else if (err.response && err.response.data.message === '400 Bad Request: two password is duplicate') {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Mật khẩu mới không được trùng với mật khẩu cũ',
-            'error'
-          )
-        } else {
-          props.history.push('/error')
+        if (err.response && err.response.status === 400) {
+          if (err.response.data && err.response.data.typeError === 2)
+            Swal.fire(
+              'Có lỗi xảy ra!',
+              'Mật khẩu mới không được trùng với mật khẩu cũ',
+              'error'
+            )
+          else if (err.response.data && err.response.data.typeError === 4)
+            Swal.fire(
+              'Có lỗi xảy ra!',
+              'Mật khẩu không chính xác',
+              'error'
+            )
+          else
+            props.history.push('/error')
         }
+        else
+          props.history.push('/error')
       })
   }
 
@@ -169,7 +164,7 @@ export const UpdatePasswordForm = (props) => {
           <ButtonCustom
             displayText="Thay đổi"
             disabled={
-              !passwordField.valid || !newPasswordField.valid || 
+              !passwordField.valid || !newPasswordField.valid ||
               !confirmNewPasswordField.valid
             }
           />
