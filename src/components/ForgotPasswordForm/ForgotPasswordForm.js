@@ -11,9 +11,9 @@ import Container from '@material-ui/core/Container';
 import { Link as RouteLink } from 'react-router-dom';
 import { Button as ButtonCustom } from '../shared/Button';
 import { InputText } from '../shared/InputText';
-import Swal from 'sweetalert2';
 import { authService } from 'services';
 import { validateUsername, validateEmail } from 'helpers/validators';
+import { successSwal, errorSwal } from 'helpers/swal';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -77,33 +77,22 @@ export const ForgotPasswordForm = (props) => {
         setGlobal({
           loading: false,
         })
-        Swal.fire(
-          'Thành công!',
-          'Vui lòng kiểm tra email để lấy lại mật khẩu',
-          'success'
-        )
-        props.history.push('/')
+        successSwal({
+          title: 'Thành công!',
+          content: 'Vui lòng kiểm tra email để lấy lại mật khẩu'
+        }, () => {
+          props.history.push('/dang-nhap')
+        })
       })
       .catch(err => {
         setGlobal({
           loading: false,
         })
-        if (err.response && err.response.status === 400) {
-          if (err.response.data && err.response.data.typeError === 2)
-            Swal.fire(
-              'Có lỗi xảy ra!',
-              'Tài khoản chưa được xác thực, vui lòng kiểm tra email',
-              'error'
-            )
-          else
-            props.history.push('/error')
-        }
-        else if (err.response && err.response.status === 404) {
-          Swal.fire(
-            'Có lỗi xảy ra!',
-            'Username hoặc email chưa được đăng ký',
-            'error'
-          )
+        if (err.response) {
+          errorSwal({
+            title: 'Có lỗi xảy ra!',
+            content: err.response.data.message
+          })
         } else {
           props.history.push('/error')
         }

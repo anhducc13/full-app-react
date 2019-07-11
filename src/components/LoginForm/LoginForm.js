@@ -11,7 +11,6 @@ import Container from '@material-ui/core/Container';
 import { Link as RouteLink } from 'react-router-dom';
 import { Button as ButtonCustom } from '../shared/Button';
 import { InputText } from '../shared/InputText';
-import Swal from 'sweetalert2';
 import { authService } from 'services';
 import { validateUsername, validatePassword } from 'helpers/validators';
 import { successSwal, errorSwal } from 'helpers/swal';

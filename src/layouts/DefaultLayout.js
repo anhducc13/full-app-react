@@ -1,17 +1,20 @@
-import { withRouter, Link as RouterLink } from 'react-router-dom'
 import React from 'react';
 import { setGlobal } from 'reactn';
+import { Link as RouterLink, Switch } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
+import { Home } from 'views/Home';
+import { Profile } from 'views/Profile';
+import { UpdatePassword } from 'views/UpdatePassword';
+import PrivateRoute from 'routes/PrivateRoute';
+import { successSwal, errorSwal, okCancelSwal } from 'helpers/swal';
 import { authService } from 'services';
 import { Auth } from 'helpers/auth';
-import { successSwal, errorSwal, okCancelSwal } from 'helpers/swal';
-
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -63,7 +66,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const AuthHeaderBar = withRouter(({ history }) => {
+export const DefaultLayout = (props) => {
+  const username = Auth.isAuthenticated() ? Auth.username : '';
   const classes = useStyles();
 
   const handleLogout = () => {
@@ -86,7 +90,7 @@ export const AuthHeaderBar = withRouter(({ history }) => {
               content: 'Tạm biệt'
             }, () => {
               localStorage.removeItem('userInfoLogin')
-              history.push('/dang-nhap')
+              props.history.push('/dang-nhap')
             })
           })
           .catch(err => {
@@ -99,51 +103,44 @@ export const AuthHeaderBar = withRouter(({ history }) => {
                 title: 'Có lỗi xảy ra!',
                 content: err.response.data.message
               }, () => {
-                history.push('/dang-nhap')
+                props.history.push('/dang-nhap')
               })
             else
-              history.push('/dang-nhap')
+              props.history.push('/dang-nhap')
           })
       }
     })
   }
+
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-          <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            {Auth.isAuthenticated() ? `Xin chào ${Auth.username}` : 'DUCTT'}
-          </Typography>
-          {Auth.isAuthenticated() ? (
-            <React.Fragment>
-              <nav>
-                <Link variant="button" color="textPrimary" to="/trang-ca-nhan" component={RouterLink} className={classes.link}>
-                  Trang cá nhân
+    <div>
+      <React.Fragment>
+        <CssBaseline />
+        <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
+          <Toolbar className={classes.toolbar}>
+            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
+              {`Xin chào ${username}`}
+            </Typography>
+            <nav>
+              <Link variant="button" color="textPrimary" to="/trang-ca-nhan" component={RouterLink} className={classes.link}>
+                Trang cá nhân
                 </Link>
-                <Link variant="button" color="textPrimary" to="/doi-mat-khau" component={RouterLink} className={classes.link}>
-                  Đổi mật khẩu
+              <Link variant="button" color="textPrimary" to="/doi-mat-khau" component={RouterLink} className={classes.link}>
+                Đổi mật khẩu
                 </Link>
-              </nav>
-              <Button onClick={handleLogout} color="primary" variant="outlined" className={classes.link}>
-                Đăng xuất
+            </nav>
+            <Button onClick={handleLogout} color="primary" variant="outlined" className={classes.link}>
+              Đăng xuất
               </Button>
-            </React.Fragment>
-          ) : (
-              <nav>
-                <Link variant="button" color="textPrimary" to="/dang-nhap" component={RouterLink} className={classes.link}>
-                  Đăng nhập
-            </Link>
-                <Link variant="button" color="textPrimary" to="/dang-ky" component={RouterLink} className={classes.link}>
-                  Đăng ký
-            </Link>
-                <Link variant="button" color="textPrimary" to="/quen-mat-khau" component={RouterLink} className={classes.link}>
-                  Quên mật khẩu
-            </Link>
-              </nav>
-            )}
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
+          </Toolbar>
+        </AppBar>
+      </React.Fragment>
+      <Switch>
+        <PrivateRoute exact path="/" component={Home} />
+        <PrivateRoute exact path="/trang-chu" component={Home} />
+        <PrivateRoute exact path="/trang-ca-nhan" component={Profile} />
+        <PrivateRoute exact path="/doi-mat-khau" component={UpdatePassword} />
+      </Switch>
+    </div>
   )
-})
+}

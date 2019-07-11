@@ -11,9 +11,9 @@ import Container from '@material-ui/core/Container';
 import { Link as RouteLink } from 'react-router-dom';
 import { Button as ButtonCustom } from '../shared/Button';
 import { InputText } from '../shared/InputText';
-import Swal from 'sweetalert2';
 import { authService } from 'services';
 import { validatePassword } from 'helpers/validators';
+import { successSwal, errorSwal } from 'helpers/swal';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -94,35 +94,30 @@ export const UpdatePasswordForm = (props) => {
         setGlobal({
           loading: false,
         })
-        Swal.fire(
-          'Thành công!',
-          'Mật khẩu của bạn đã được thay đổi',
-          'success'
-        )
-          .then(() => {
-            props.history.push('/')
-          })
+        successSwal({
+          title: 'Thành công!',
+          content: 'Mật khẩu của bạn đã được thay đổi'
+        }, () => {
+          props.history.push('/')
+        })
       })
       .catch(err => {
         console.log(err.response)
         setGlobal({
           loading: false,
         })
-        if (err.response && err.response.status === 400) {
-          if (err.response.data && err.response.data.typeError === 2)
-            Swal.fire(
-              'Có lỗi xảy ra!',
-              'Mật khẩu mới không được trùng với mật khẩu cũ',
-              'error'
-            )
-          else if (err.response.data && err.response.data.typeError === 4)
-            Swal.fire(
-              'Có lỗi xảy ra!',
-              'Mật khẩu không chính xác',
-              'error'
-            )
-          else
-            props.history.push('/error')
+        if (err.response && err.response.status === 401) {
+          errorSwal({
+            title: 'Có lỗi xảy ra!',
+            content: err.response.data.message
+          }, () => {
+            props.history.push('/dang-nhap')
+          })
+        } else if (err.response && err.response.status === 404) {
+          errorSwal({
+            title: 'Có lỗi xảy ra!',
+            content: err.response.data.message
+          })
         }
         else
           props.history.push('/error')

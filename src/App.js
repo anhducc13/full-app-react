@@ -1,15 +1,15 @@
 import React from 'react';
 import { useGlobal, setGlobal } from 'reactn'
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom'
-import { AuthHeaderBar } from 'components/shared/AuthHeader'
-import { AppRoutes } from 'routes'
+import { BrowserRouter as Router} from 'react-router-dom';
+import { AuthHeaderBar } from 'components/shared/AuthHeader';
+import { AppRoutes } from 'routes';
 
 function App() {
-  const [ loading ] = useGlobal('loading');
-
+  const [loading] = useGlobal('loading');
+  
   setGlobal({
-    initTextField : {
+    initTextField: {
       value: '',
       error: '',
       valid: false,
@@ -19,10 +19,10 @@ function App() {
   return (
     <div className="App">
       {loading && (
-      <div id="loader-wrapper">
-        <div id="loader"></div>
-      </div>
-    )}
+        <div id="loader-wrapper">
+          <div id="loader"></div>
+        </div>
+      )}
       <Router>
         <AuthHeaderBar />
         <AppRoutes />

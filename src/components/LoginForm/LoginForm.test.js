@@ -2,7 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router-dom';
 import { LoginForm } from './LoginForm';
-
+import { authService } from '../../services';
 
 describe('Login Form Render', () => {
   it('should render correctly', () => {
@@ -26,7 +26,7 @@ describe('Login form validate username', () => {
     }
     component.find('input[name="username"]').simulate('change', targetInput);
     expect(component.find('p#username-helper-text').text())
-      .toBe('Tên đăng nhập chỉ bao gồm chữ cái và số');
+      .toBe('Tên đăng nhập bao gồm chữ cái và số');
     component.unmount()
   })
 
@@ -86,7 +86,25 @@ describe('Login form submit', () => {
     );
     component.find('input[name="username"]').text('anhducc13');
     component.find('input[name="password"]').text('Anhducc13');
-    expect(component.find('button[type="submit"]').prop('disabled')).toBeUndefined();
+    expect(component.find('button[type="submit"]').prop('disable')).toBe(undefined);
+    component.unmount();
+  })
+
+  it('Submit form, call api with valid input', () => {
+    const component = mount(
+      <MemoryRouter>
+        <LoginForm />
+      </MemoryRouter>
+    );
+    const target = {
+      'username': 'anhducc13',
+      'password': 'Anhducc13',
+    }
+    component.find('input[name="username"]').text('anhducc13');
+    component.find('input[name="password"]').text('Anhducc13');
+    const loginFn = jest.spyOn(authService, 'login').mockImplementation(() => Promise.resolve({ data: { code: 200, message: 'Thanh cong' } }));
+    component.find('button').simulate('click')
+    expect(loginFn).toHaveBeenCalledWith(target)
     component.unmount();
   })
 });

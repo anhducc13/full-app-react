@@ -30,11 +30,11 @@ const updatePassword = (params, accessToken) => {
             "Authorization": accessToken,
         }
     }
-    return axios.post(`${URL}/auth/update-password`, params, reqConfig)
+    return axios.post(`${URL}/auth/updatePassword`, params, reqConfig)
 }
 
 const forgotPassword = params => {
-    return axios.post(`${URL}/auth/forgot-password`, params)
+    return axios.post(`${URL}/auth/forgotPassword`, params)
 }
 
 export default {

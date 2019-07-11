@@ -18,7 +18,7 @@ exports[`Login Form Render should render correctly 1`] = `
       component="h1"
       variant="h4"
     >
-      Login
+      Đăng nhập
     </WithStyles(ForwardRef(Typography))>
     <form
       className="makeStyles-form-3"
@@ -26,7 +26,7 @@ exports[`Login Form Render should render correctly 1`] = `
       onSubmit={[Function]}
     >
       <InputText
-        label="Username"
+        label="Tên đăng nhập"
         name="username"
         onChange={[Function]}
         textField={
@@ -39,7 +39,7 @@ exports[`Login Form Render should render correctly 1`] = `
         type="text"
       />
       <InputText
-        label="Password"
+        label="Mật khẩu"
         name="password"
         onChange={[Function]}
         textField={
@@ -53,7 +53,7 @@ exports[`Login Form Render should render correctly 1`] = `
       />
       <Button
         disabled={true}
-        displayText="Login"
+        displayText="Đăng nhập"
       />
       <WithStyles(ForwardRef(Grid))
         container={true}
@@ -64,10 +64,10 @@ exports[`Login Form Render should render correctly 1`] = `
         >
           <WithStyles(ForwardRef(Link))
             component={[Function]}
-            to="/forgot-password"
+            to="/quen-mat-khau"
             variant="body2"
           >
-            Forgot password?
+            Quên mật khẩu?
           </WithStyles(ForwardRef(Link))>
         </WithStyles(ForwardRef(Grid))>
         <WithStyles(ForwardRef(Grid))
@@ -75,10 +75,10 @@ exports[`Login Form Render should render correctly 1`] = `
         >
           <WithStyles(ForwardRef(Link))
             component={[Function]}
-            to="/register"
+            to="/dang-ky"
             variant="body2"
           >
-            Don't have an account? Register
+            Chưa có tài khoản? Đăng ký
           </WithStyles(ForwardRef(Link))>
         </WithStyles(ForwardRef(Grid))>
       </WithStyles(ForwardRef(Grid))>

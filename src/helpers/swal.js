@@ -11,7 +11,7 @@ export const successSwal = (option, resolve) => {
         })
 }
 
-export const errorSwal = (option, resolve) => {
+export const errorSwal = (option, resolve = () => {}) => {
     Swal.fire(
         option.title,
         option.content,
