@@ -5,9 +5,8 @@ const register = params => {
     return axios.post(`${URL}/auth/register`, params)
 }
 
-const verify = (accessToken, cb) => {
+const verify = (accessToken) => {
     return axios.get(`${URL}/auth/verify/${accessToken}`)
-        .then(res => cb(res));
 }
 
 const login = (params) => {

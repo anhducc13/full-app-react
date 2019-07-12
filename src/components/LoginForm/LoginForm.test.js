@@ -8,7 +8,6 @@ describe('Login Form Render', () => {
   it('should render correctly', () => {
     const component = shallow(<LoginForm />);
     expect(component).toMatchSnapshot();
-    component.unmount();
   });
 });
 
@@ -72,9 +71,9 @@ describe('Login form submit', () => {
         <LoginForm />
       </MemoryRouter>
     );
-    component.find('input[name="username"]').text('a');
-    component.find('input[name="password"]').text('');
-    expect(component.find('button[type="submit"]').prop('disabled')).toBe(true);
+    component.find('input[name="username"]').simulate('change', { target: { value: '' } });
+    component.find('input[name="password"]').simulate('change', { target: { value: 'ANhduc13' } });
+    expect(component.find('button[type="submit"]').prop('disabled')).toBeTruthy();
     component.unmount();
   })
 
@@ -84,9 +83,9 @@ describe('Login form submit', () => {
         <LoginForm />
       </MemoryRouter>
     );
-    component.find('input[name="username"]').text('anhducc13');
-    component.find('input[name="password"]').text('Anhducc13');
-    expect(component.find('button[type="submit"]').prop('disable')).toBe(undefined);
+    component.find('input[name="username"]').simulate('change', { target: { value: 'anhduc13' } });
+    component.find('input[name="password"]').simulate('change', { target: { value: 'anhduc13' } });
+    expect(component.find('input[name="username"]').prop('disabled')).toBeFalsy();
     component.unmount();
   })
 
@@ -96,15 +95,16 @@ describe('Login form submit', () => {
         <LoginForm />
       </MemoryRouter>
     );
-    const target = {
+    const value = {
       'username': 'anhducc13',
       'password': 'Anhducc13',
     }
-    component.find('input[name="username"]').text('anhducc13');
-    component.find('input[name="password"]').text('Anhducc13');
-    const loginFn = jest.spyOn(authService, 'login').mockImplementation(() => Promise.resolve({ data: { code: 200, message: 'Thanh cong' } }));
-    component.find('button').simulate('click')
-    expect(loginFn).toHaveBeenCalledWith(target)
+    component.find('input[name="username"]').simulate('change', { target: { value: value.username } });
+    component.find('input[name="password"]').simulate('change', { target: { value: value.password } });
+    const loginFn = jest.spyOn(authService, 'login').mockImplementation(() => Promise.resolve({ status: 200 }));
+    component.find('form').simulate('submit');
+    expect(loginFn).toHaveBeenCalled();
+    expect(loginFn).toHaveBeenCalledWith(value);
     component.unmount();
   })
 });

@@ -106,14 +106,7 @@ export const UpdatePasswordForm = (props) => {
         setGlobal({
           loading: false,
         })
-        if (err.response && err.response.status === 401) {
-          errorSwal({
-            title: 'Có lỗi xảy ra!',
-            content: err.response.data.message
-          }, () => {
-            props.history.push('/dang-nhap')
-          })
-        } else if (err.response && err.response.status === 404) {
+        if (err.response && err.response.status === 400) {
           errorSwal({
             title: 'Có lỗi xảy ra!',
             content: err.response.data.message

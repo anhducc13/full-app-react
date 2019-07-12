@@ -77,6 +77,7 @@ export const LoginForm = (props) => {
     });
     authService.login(params)
       .then(res => {
+        console.log(res);
         setGlobal({
           loading: false
         });
