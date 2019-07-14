@@ -26,7 +26,7 @@ export const haveNumberCharacter = (text) => {
 }
 
 export const isEmail = (email) => {
-  const regexEmail = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
+  const regexEmail = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
   return regexEmail.test(email.toLowerCase())
 }
 
@@ -61,7 +61,7 @@ export const validateEmail = ({ value, error, valid }) => {
     error = '';
     valid = true;
   } else {
-    error = 'Email không hợp lệ!';
+    error = 'Email không hợp lệ';
     valid = false;
   }
   return { value, error, valid }

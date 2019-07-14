@@ -4,6 +4,10 @@ import './App.css';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { AuthHeaderBar } from 'components/shared/AuthHeader';
 import { AppRoutes } from 'routes';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
+toast.configure()
 
 function App() {
   const [loading] = useGlobal('loading');

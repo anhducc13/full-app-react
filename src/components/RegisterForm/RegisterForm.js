@@ -174,7 +174,7 @@ export const RegisterForm = (props) => {
 
           <Grid container>
             <Link to="/dang-nhap" variant="body2" component={RouteLink}>
-              Đã có tài khoản? Đăng ký
+              Đã có tài khoản? Đăng nhập
             </Link>
           </Grid>
         </form>

@@ -13,8 +13,8 @@ import { Button as ButtonCustom } from '../shared/Button';
 import { InputText } from '../shared/InputText';
 import { authService } from 'services';
 import { validateUsername, validatePassword } from 'helpers/validators';
-import { successSwal, errorSwal } from 'helpers/swal';
-
+import { errorSwal } from 'helpers/swal';
+import { toast } from 'react-toastify';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -38,7 +38,11 @@ const useStyles = makeStyles(theme => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
+
 
 export const LoginForm = (props) => {
   const classes = useStyles();
@@ -66,6 +70,11 @@ export const LoginForm = (props) => {
     setPasswordField(outputValidate);
   }
 
+  const resetForm = () => {
+    setUsernameField(initTextField);
+    setPasswordField(initTextField);
+  }
+
   const onSubmitForm = (e) => {
     e.preventDefault();
     const params = {
@@ -77,19 +86,15 @@ export const LoginForm = (props) => {
     });
     authService.login(params)
       .then(res => {
-        console.log(res);
+        console.log(res)
         setGlobal({
           loading: false
         });
         if (res.status === 200) {
           const userInfoLogin = res.data;
           localStorage.setItem('userInfoLogin', JSON.stringify(userInfoLogin));
-          successSwal({
-            title: 'Thành công!',
-            content: `Xin chào ${userInfoLogin['username']} quay trở lại`
-          }, () => {
-            props.history.push('/');
-          })
+          toast.success(`Xin chào ${userInfoLogin['username']} quay trở lại`);
+          props.history.push('/');
         }
       })
       .catch(err => {
@@ -100,7 +105,7 @@ export const LoginForm = (props) => {
           errorSwal({
             title: 'Có lỗi xảy ra!',
             content: err.response.data.message || ''
-          })
+          }, resetForm)
         else
           props.history.push('/error');
       })

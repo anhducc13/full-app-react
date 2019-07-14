@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register Form Render should render correctly 1`] = `
+<WithStyles(ForwardRef(Container))
+  component="main"
+  maxWidth="sm"
+>
+  <CssBaseline />
+  <div
+    className="makeStyles-paper-1"
+  >
+    <WithStyles(ForwardRef(Avatar))
+      className="makeStyles-avatar-2"
+    >
+      <LockOutlinedIcon />
+    </WithStyles(ForwardRef(Avatar))>
+    <WithStyles(ForwardRef(Typography))
+      component="h1"
+      variant="h4"
+    >
+      Đăng ký
+    </WithStyles(ForwardRef(Typography))>
+    <form
+      className="makeStyles-form-3"
+      noValidate={true}
+      onSubmit={[Function]}
+    >
+      <InputText
+        label="Email"
+        name="email"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="email"
+      />
+      <InputText
+        label="Tên đăng nhập"
+        name="username"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="text"
+      />
+      <InputText
+        label="Mật khẩu"
+        name="password"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="password"
+      />
+      <InputText
+        label="Nhập lại mật khẩu"
+        name="confirm-password"
+        onChange={[Function]}
+        textField={
+          Object {
+            "error": "",
+            "valid": false,
+            "value": "",
+          }
+        }
+        type="password"
+      />
+      <Button
+        disabled={true}
+        displayText="Đăng ký"
+      />
+      <WithStyles(ForwardRef(Grid))
+        container={true}
+      >
+        <WithStyles(ForwardRef(Link))
+          component={[Function]}
+          to="/dang-nhap"
+          variant="body2"
+        >
+          Đã có tài khoản? Đăng nhập
+        </WithStyles(ForwardRef(Link))>
+      </WithStyles(ForwardRef(Grid))>
+    </form>
+  </div>
+</WithStyles(ForwardRef(Container))>
+`;

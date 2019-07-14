@@ -10,7 +10,8 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import { authService } from 'services';
 import { Auth } from 'helpers/auth';
-import { successSwal, errorSwal, okCancelSwal } from 'helpers/swal';
+import { okCancelSwal } from 'helpers/swal';
+import { toast } from 'react-toastify';
 
 
 const useStyles = makeStyles(theme => ({
@@ -81,28 +82,14 @@ export const AuthHeaderBar = withRouter(({ history }) => {
             setGlobal({
               loading: false,
             })
-            successSwal({
-              title: 'Thành công!',
-              content: 'Tạm biệt'
-            }, () => {
-              localStorage.removeItem('userInfoLogin')
-              history.push('/dang-nhap')
-            })
+            localStorage.removeItem('userInfoLogin')
+            toast.info(`Tạm biệt`);
+            history.push('/dang-nhap')
           })
           .catch(err => {
             localStorage.removeItem('userInfoLogin')
-            setGlobal({
-              loading: false,
-            })
-            if (err.response && err.response.status === 401)
-              errorSwal({
-                title: 'Có lỗi xảy ra!',
-                content: err.response.data.message
-              }, () => {
-                history.push('/dang-nhap')
-              })
-            else
-              history.push('/dang-nhap')
+            toast.error(`Có lỗi xảy ra`);
+            history.push('/dang-nhap')
           })
       }
     })
