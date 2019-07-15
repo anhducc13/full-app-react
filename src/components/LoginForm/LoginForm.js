@@ -114,7 +114,6 @@ export const LoginForm = (props) => {
 
   return (
     <Container component="main" maxWidth="sm">
-      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />

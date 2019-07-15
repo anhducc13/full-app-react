@@ -5,7 +5,6 @@ exports[`Login Form Render should render correctly 1`] = `
   component="main"
   maxWidth="sm"
 >
-  <CssBaseline />
   <div
     className="makeStyles-paper-1"
   >
