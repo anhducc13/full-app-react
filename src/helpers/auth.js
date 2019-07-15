@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 export const Auth = {
     username: '',
     isAdmin: false,
@@ -9,7 +10,7 @@ export const Auth = {
         console.log(Date.now() - userInfoLogin['timeExpired'] * 1000)
         if (Date.now() - userInfoLogin['timeExpired'] * 1000 > 0) {
             localStorage.removeItem('userInfoLogin')
-            alert('Phiên làm việc kết thúc, vui lòng đăng nhập để tiếp tục')
+            toast.error('Phiên làm việc kết thúc');
             return false;
         }
         return true;

@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.light,
     width: 60,
     height: 60,
   },
@@ -114,6 +114,7 @@ export const LoginForm = (props) => {
 
   return (
     <Container component="main" maxWidth="sm">
+      <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
