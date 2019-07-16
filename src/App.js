@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import { Auth } from 'helpers/auth';
 import { Login } from 'views/Login';
+import { Error } from 'views/Error';
 import { Register } from 'views/Register';
 import { ForgotPassword } from 'views/ForgotPassword';
 import { DefaultLayout } from './layouts/DefaultLayout';
@@ -43,6 +44,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/dang-nhap" component={Login} />
+          <Route exact path="/error" component={Error} />
           <Route exact path="/dang-ky" component={Register} />
           <Route exact path="/quen-mat-khau" component={ForgotPassword} />
           <PrivateRoute path="/" component={DefaultLayout} />

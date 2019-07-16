@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal } from 'reactn';
+import { setGlobal, useGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -99,6 +99,8 @@ export const ForgotPasswordForm = (props) => {
       })
   }
 
+  const [ loading ] = useGlobal('loading')
+
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
@@ -127,6 +129,7 @@ export const ForgotPasswordForm = (props) => {
           <ButtonCustom
             displayText="Nhận mật khẩu mới"
             disabled={
+              !!loading ||
               !usernameField.valid || !emailField.valid
             }
           />

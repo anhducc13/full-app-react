@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal } from 'reactn';
+import { setGlobal, useGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -70,7 +70,7 @@ export const UpdatePasswordForm = (props) => {
     value = e.target.value;
 
     if (value !== newPasswordField.value) {
-      error = 'Mật khẩu không khớp!';
+      error = 'Mật khẩu không khớp';
       valid = false;
     } else {
       error = '';
@@ -117,6 +117,8 @@ export const UpdatePasswordForm = (props) => {
       })
   }
 
+  const [ loading ] = useGlobal('loading')
+
   return (
     <Container component="main" maxWidth="sm">
       <CssBaseline />
@@ -152,6 +154,7 @@ export const UpdatePasswordForm = (props) => {
           <ButtonCustom
             displayText="Thay đổi"
             disabled={
+              !!loading ||
               !passwordField.valid || !newPasswordField.valid ||
               !confirmNewPasswordField.valid
             }

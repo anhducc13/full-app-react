@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal } from 'reactn';
+import { setGlobal, useGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -124,6 +124,7 @@ export const RegisterForm = (props) => {
         }
       })
   }
+  const [ loading ] = useGlobal('loading')
 
   return (
     <Container component="main" maxWidth="sm">
@@ -167,6 +168,7 @@ export const RegisterForm = (props) => {
           <ButtonCustom
             displayText="Đăng ký"
             disabled={
+              !!loading ||
               !usernameField.valid || !passwordField.valid ||
               !emailField.valid || !confirmPasswordField.valid
             }

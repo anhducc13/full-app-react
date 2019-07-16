@@ -1,4 +1,4 @@
-import { withRouter, NavLink } from 'react-router-dom'
+import { withRouter, Link as RouterLink } from 'react-router-dom'
 import React from 'react';
 import { setGlobal } from 'reactn';
 import { makeStyles } from '@material-ui/core/styles';
@@ -11,6 +11,7 @@ import Link from '@material-ui/core/Link';
 import { authService } from 'services';
 import { okCancelSwal } from 'helpers/swal';
 import { toast } from 'react-toastify';
+import { Auth } from '../../helpers/auth';
 
 
 const useStyles = makeStyles(theme => ({
@@ -72,24 +73,32 @@ export const AuthHeaderBar = withRouter(({ history, location }) => {
       content: 'Đăng xuất!'
     }, (result) => {
       if (result.value) {
-        setGlobal({
-          loading: true,
-        })
-        const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['accessToken'];
-        authService.logout(accessToken)
-          .then(() => {
-            setGlobal({
-              loading: false,
+        if (!Auth.isAuthenticated()) {
+          toast.error('Phiên làm việc kết thúc');
+          history.push('/dang-nhap');
+        } else {
+          setGlobal({
+            loading: true,
+          })
+          const accessToken = JSON.parse(localStorage.getItem('userInfoLogin'))['accessToken'];
+          authService.logout(accessToken)
+            .then(() => {
+              setGlobal({
+                loading: false,
+              })
+              localStorage.removeItem('userInfoLogin')
+              toast.info(`Tạm biệt`);
+              history.push('/dang-nhap')
             })
-            localStorage.removeItem('userInfoLogin')
-            toast.info(`Tạm biệt`);
-            history.push('/dang-nhap')
-          })
-          .catch(err => {
-            localStorage.removeItem('userInfoLogin')
-            toast.error(`Có lỗi xảy ra`);
-            history.push('/dang-nhap')
-          })
+            .catch(err => {
+              setGlobal({
+                loading: false,
+              })
+              localStorage.removeItem('userInfoLogin')
+              toast.error(`Có lỗi xảy ra`);
+              history.push('/dang-nhap')
+            })
+        }
       }
     })
   }
@@ -107,7 +116,7 @@ export const AuthHeaderBar = withRouter(({ history, location }) => {
               underline={location.pathname === '/' ? "always" : "hover"}
               color="textPrimary"
               to="/"
-              component={NavLink}
+              component={RouterLink}
               className={classes.link}
             >
               Trang chủ
@@ -117,7 +126,7 @@ export const AuthHeaderBar = withRouter(({ history, location }) => {
               underline={location.pathname === '/trang-ca-nhan' ? "always" : "hover"}
               color="textPrimary"
               to="/trang-ca-nhan"
-              component={NavLink}
+              component={RouterLink}
               className={classes.link}
             >
               Trang cá nhân
@@ -127,10 +136,10 @@ export const AuthHeaderBar = withRouter(({ history, location }) => {
               underline={location.pathname === '/doi-mat-khau' ? "always" : "hover"}
               color="textPrimary"
               to="/doi-mat-khau"
-              component={NavLink}
+              component={RouterLink}
               className={classes.link}
             >
-            Đổi mật khẩu
+              Đổi mật khẩu
             </Link>
           </nav>
           <Button onClick={handleLogout} color="primary" variant="outlined" className={classes.link}>

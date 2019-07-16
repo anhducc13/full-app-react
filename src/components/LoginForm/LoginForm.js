@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { setGlobal } from 'reactn';
+import { setGlobal, useGlobal } from 'reactn';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
@@ -86,7 +86,6 @@ export const LoginForm = (props) => {
     });
     authService.login(params)
       .then(res => {
-        console.log(res)
         setGlobal({
           loading: false
         });
@@ -111,6 +110,7 @@ export const LoginForm = (props) => {
       })
   }
 
+  const [ loading ] = useGlobal('loading');
 
   return (
     <Container component="main" maxWidth="sm">
@@ -139,7 +139,7 @@ export const LoginForm = (props) => {
           />
           <ButtonCustom
             displayText="Đăng nhập"
-            disabled={!usernameField.valid || !passwordField.valid}
+            disabled={!!loading || !usernameField.valid || !passwordField.valid}
           />
           <Grid container>
             <Grid item xs>
