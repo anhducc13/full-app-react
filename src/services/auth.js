@@ -16,9 +16,9 @@ const login = (params) => {
 const logout = (accessToken) => {
     const reqConfig = {
         "headers": {
-            "Authorization": accessToken,
+            "Authorization": `Bearer ${accessToken}`,
         }
-        
+
     }
     return axios.get(`${URL}/auth/logout`, reqConfig)
 }
@@ -26,7 +26,7 @@ const logout = (accessToken) => {
 const updatePassword = (params, accessToken) => {
     const reqConfig = {
         "headers": {
-            "Authorization": accessToken,
+            "Authorization": `Bearer ${accessToken}`,
         }
     }
     return axios.post(`${URL}/auth/updatePassword`, params, reqConfig)
