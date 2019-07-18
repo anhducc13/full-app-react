@@ -117,7 +117,7 @@ export const RegisterForm = (props) => {
         if (err.response) {
           errorSwal({
             title: 'Có lỗi xảy ra!',
-            content: err.response.data.msg
+            content: err.response.data.message
           })
         } else {
           props.history.push('/error')

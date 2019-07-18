@@ -103,7 +103,7 @@ export const LoginForm = (props) => {
         if (err.response && err.response.data)
           errorSwal({
             title: 'Có lỗi xảy ra!',
-            content: err.response.data.msg || ''
+            content: err.response.data.message || ''
           }, resetForm)
         else
           props.history.push('/error');

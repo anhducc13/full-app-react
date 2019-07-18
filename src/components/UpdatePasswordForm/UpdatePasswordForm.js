@@ -109,13 +109,13 @@ export const UpdatePasswordForm = (props) => {
         if (err.response && err.response.status === 400) {
           errorSwal({
             title: 'Có lỗi xảy ra!',
-            content: err.response.data.msg
+            content: err.response.data.message
           })
         }
         else
           errorSwal({
             title: 'Có lỗi xảy ra!',
-            content: err.response.data.msg
+            content: err.response.data.message
           }, () => {
             props.history.push('/error')
           })
